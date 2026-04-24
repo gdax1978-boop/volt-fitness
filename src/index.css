@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #0a0a0a;
+  --color-obsidian-light: #171717;
+  --color-lime: #ccff00;
+  --color-lime-hover: #b3e600;
+
+  /* Dashboard — Midnight & Brushed Steel */
+  --color-midnight: #050505;
+  --color-midnight-card: #0f0f0f;
+  --color-midnight-elevated: #161616;
+  --color-steel: #1a1a1a;
+  --color-volt-blue: #0066ff;
+  --color-volt-blue-hover: #0052cc;
+
+  --font-anton: 'Anton', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-obsidian text-white font-sans antialiased overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-anton tracking-wide uppercase;
+  }
+
+  /* Polished focus ring for accessibility */
+  :focus-visible {
+    outline: 2px solid #ccff00;
+    outline-offset: 2px;
+  }
+}
+
+/* Custom utilities for diagonal cuts */
+@layer utilities {
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .glass-dark {
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  /* Text gradient */
+  .text-gradient-lime {
+    background: linear-gradient(90deg, #ccff00 0%, #a8d400 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gradient-blue {
+    background: linear-gradient(90deg, #0066ff 0%, #00aaff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Noise grain overlay */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Orb glow */
+  @keyframes orb-drift {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.15) rotate(20deg); }
+  }
+  .orb-animate { animation: orb-drift 8s ease-in-out infinite; }
+
+  /* Ticker */
+  @keyframes ticker-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .ticker-animate { animation: ticker-left 40s linear infinite; }
+
+  /* Pulse dot */
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+  .pulse-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
+
+  .clip-diagonal-top {
+    clip-path: polygon(0 5vw, 100% 0, 100% 100%, 0 100%);
+  }
+  .clip-diagonal-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 5vw), 0 100%);
+  }
+  .clip-diagonal-both {
+    clip-path: polygon(0 5vw, 100% 0, 100% calc(100% - 5vw), 0 100%);
+  }
+  .clip-diagonal-both-reverse {
+    clip-path: polygon(0 0, 100% 5vw, 100% 100%, 0 calc(100% - 5vw));
+  }
+}
