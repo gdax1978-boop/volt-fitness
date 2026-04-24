@@ -42,18 +42,26 @@
 
 /* Custom utilities for diagonal cuts */
 @layer utilities {
-  /* Glassmorphism */
+  /* Glassmorphism — GPU-accelerated, with @supports fallback */
   .glass {
     background: rgba(255, 255, 255, 0.025);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.06);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
   .glass-dark {
     background: rgba(10, 10, 10, 0.8);
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
     border: 1px solid rgba(255, 255, 255, 0.05);
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .glass      { background: rgba(30, 30, 30, 0.97); }
+    .glass-dark { background: rgba(5, 5, 5, 0.98); }
   }
 
   /* Text gradient */
@@ -80,12 +88,27 @@
     border-radius: inherit;
   }
 
-  /* Orb glow */
+  /* Orb glow — GPU-accelerated */
   @keyframes orb-drift {
     0%, 100% { transform: translate(-50%, -50%) scale(1); }
     50% { transform: translate(-50%, -50%) scale(1.15) rotate(20deg); }
   }
-  .orb-animate { animation: orb-drift 8s ease-in-out infinite; }
+  .orb-animate {
+    animation: orb-drift 8s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Force GPU composite layer on all blur elements for mobile */
+  .blur-glow {
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 
   /* Ticker */
   @keyframes ticker-left {

@@ -10,11 +10,34 @@ export default function Hero({ onOpenContact }: HeroProps) {
   return (
     <section id="home" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-obsidian via-obsidian/80 to-transparent z-10" />
-        <img 
-          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" 
-          alt="Athlete training" 
+        {/* Desktop: left-to-right cinematic gradient */}
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-obsidian via-obsidian/80 to-transparent z-10" />
+
+        {/* Mobile: multi-directional gradient for portrait — dark from bottom + left for legibility */}
+        <div
+          className="md:hidden absolute inset-0 z-10"
+          style={{
+            background:
+              'linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.75) 40%, rgba(10,10,10,0.3) 100%),' +
+              'linear-gradient(to right, #0a0a0a 0%, rgba(10,10,10,0.5) 50%, transparent 100%)',
+          }}
+        />
+
+        {/* Ambient lime glow — visible on mobile, subtle on desktop */}
+        <div
+          className="absolute inset-0 z-[5] pointer-events-none blur-glow"
+          style={{
+            background:
+              'radial-gradient(ellipse 60% 40% at 20% 60%, rgba(204,255,0,0.07) 0%, transparent 70%),' +
+              'radial-gradient(ellipse 40% 50% at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 60%)',
+          }}
+        />
+
+        <img
+          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"
+          alt="Athlete training"
           className="w-full h-full object-cover grayscale opacity-70 mix-blend-overlay"
+          fetchpriority="high"
         />
       </div>
       

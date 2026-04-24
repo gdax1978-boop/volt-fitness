@@ -127,7 +127,7 @@ export default function ReadinessWidget({ onScoreReady }: ReadinessWidgetProps) 
     <div className="bg-midnight-card border border-white/[0.06] overflow-hidden relative noise flex flex-col h-full">
       {/* Ambient orb */}
       <div
-        className="absolute top-0 right-0 w-56 h-56 rounded-full blur-3xl opacity-10 orb-animate pointer-events-none"
+        className="absolute top-0 right-0 w-56 h-56 rounded-full blur-3xl opacity-15 orb-animate blur-glow pointer-events-none"
         style={{ background: profile.color }}
       />
 

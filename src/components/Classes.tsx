@@ -67,15 +67,28 @@ export default function Classes({ onOpenContact }: ClassesProps) {
                 transition={{ delay: i * 0.15 }}
                 className="group relative bg-obsidian-light border border-white/5 hover:border-lime/50 transition-colors overflow-hidden flex flex-col"
               >
-                {/* Top lime bar */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-lime transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out z-10" />
+                {/*
+                  Lime top bar:
+                  - Mobile (touch): always visible (scale-x-100)
+                  - Desktop (hover-capable): hidden until hover
+                */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-lime transform origin-left
+                  scale-x-100
+                  [@media(hover:hover)]:scale-x-0
+                  [@media(hover:hover)]:group-hover:scale-x-100
+                  transition-transform duration-500 ease-out z-10" />
 
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden shrink-0">
                   <img
                     src={cls.img}
                     alt={cls.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-70 group-hover:opacity-90"
+                    className="w-full h-full object-cover transition-all duration-700
+                      opacity-90 scale-100
+                      [@media(hover:hover)]:grayscale
+                      [@media(hover:hover)]:opacity-70
+                      group-hover:grayscale-0 group-hover:scale-105 group-hover:opacity-90"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian-light to-transparent" />
                   <Icon className="absolute top-4 right-4 text-lime w-6 h-6 opacity-80" />
@@ -98,7 +111,8 @@ export default function Classes({ onOpenContact }: ClassesProps) {
                   <p className="text-gray-400 font-sans font-light flex-grow leading-relaxed">{cls.desc}</p>
                   <button
                     onClick={onOpenContact}
-                    className="mt-8 uppercase font-bold text-sm tracking-wider flex items-center text-lime group-hover:translate-x-2 transition-transform cursor-pointer"
+                    className="mt-8 uppercase font-bold text-sm tracking-wider flex items-center text-lime
+                      group-hover:translate-x-2 transition-transform cursor-pointer"
                   >
                     Book Session <ArrowRight className="ml-2 w-4 h-4" />
                   </button>

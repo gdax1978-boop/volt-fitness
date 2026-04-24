@@ -51,25 +51,47 @@ export default function Trainers() {
                 <img
                   src={trainer.img}
                   alt={trainer.name}
-                  className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-700"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-all duration-700
+                    opacity-90
+                    [@media(hover:hover)]:grayscale
+                    [@media(hover:hover)]:opacity-80
+                    group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
               </div>
 
-              {/* Info — slides up on hover */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
+              {/*
+                Info panel:
+                - Mobile (touch): translate-y-0, everything visible
+                - Desktop (hover-capable): starts at translate-y-4, slides up on hover
+              */}
+              <div className="absolute bottom-0 left-0 right-0 p-8
+                translate-y-0
+                [@media(hover:hover)]:translate-y-4
+                [@media(hover:hover)]:group-hover:translate-y-0
+                transition-transform duration-300">
+
                 <span className="text-lime font-bold uppercase tracking-wider text-xs mb-1 block">
                   {trainer.role}
                 </span>
                 <h3 className="text-2xl font-anton text-white mb-3">{trainer.name}</h3>
 
-                {/* Bio — hidden until hover */}
-                <p className="text-gray-400 text-sm font-light leading-relaxed mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                {/* Bio — always visible on touch, fade in on desktop hover */}
+                <p className="text-gray-400 text-sm font-light leading-relaxed mb-4
+                  opacity-100
+                  [@media(hover:hover)]:opacity-0
+                  [@media(hover:hover)]:group-hover:opacity-100
+                  transition-opacity duration-300 delay-75">
                   {trainer.bio}
                 </p>
 
                 {/* Specialty tags */}
-                <div className="flex flex-wrap gap-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150">
+                <div className="flex flex-wrap gap-2 mb-4
+                  opacity-100
+                  [@media(hover:hover)]:opacity-0
+                  [@media(hover:hover)]:group-hover:opacity-100
+                  transition-opacity duration-300 delay-100">
                   {trainer.tags.map((tag) => (
                     <span key={tag} className="text-xs font-mono uppercase tracking-wider bg-white/10 text-white/70 px-2 py-1">
                       {tag}
@@ -78,7 +100,11 @@ export default function Trainers() {
                 </div>
 
                 {/* Social links */}
-                <div className="flex space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
+                <div className="flex space-x-3
+                  opacity-100
+                  [@media(hover:hover)]:opacity-0
+                  [@media(hover:hover)]:group-hover:opacity-100
+                  transition-opacity duration-300 delay-150">
                   <a
                     href="#"
                     className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-lime hover:text-black transition-colors text-white"

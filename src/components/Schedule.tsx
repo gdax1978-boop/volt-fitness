@@ -90,39 +90,47 @@ export default function Schedule({ onOpenContact }: ScheduleProps) {
                 return (
                   <div
                     key={idx}
-                    className={`group flex flex-col md:flex-row md:items-center justify-between p-8 bg-obsidian-light border transition-all ${
+                    className={`group flex flex-col md:flex-row md:items-center justify-between p-6 md:p-8 bg-obsidian-light border transition-all ${
                       full ? 'border-white/5 opacity-50' : 'border-white/5 hover:border-lime/30'
                     }`}
                   >
-                    <div className="flex items-center gap-8 mb-4 md:mb-0">
-                      <span className="font-anton text-2xl text-lime min-w-[120px]">{item.time}</span>
+                    <div className="flex items-center gap-6 md:gap-8 mb-4 md:mb-0">
+                      <span className="font-anton text-xl md:text-2xl text-lime min-w-[100px] md:min-w-[120px]">{item.time}</span>
                       <div className="h-8 w-[1px] bg-white/10 hidden md:block" />
                       <div>
-                        <h4 className="text-2xl font-anton text-white uppercase tracking-wider">{item.class}</h4>
+                        <h4 className="text-xl md:text-2xl font-anton text-white uppercase tracking-wider">{item.class}</h4>
                         <p className="text-white/30 font-mono text-xs uppercase tracking-widest mt-1">
                           Commanded by {item.coach}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between md:justify-end gap-4">
                       {/* Availability badge */}
-                      <span
-                        className={`font-mono text-xs uppercase tracking-widest ${
-                          full ? 'text-red-500' : almostFull ? 'text-yellow-400' : 'text-white/30'
-                        }`}
-                      >
+                      <span className={`font-mono text-xs uppercase tracking-widest ${
+                        full ? 'text-red-500' : almostFull ? 'text-yellow-400' : 'text-white/30'
+                      }`}>
                         {full ? 'Full' : `${item.spots} spots`}
                       </span>
 
+                      {/*
+                        Reserve button:
+                        - Mobile (touch): always visible, full width
+                        - Desktop (hover-capable): hidden until row is hovered
+                      */}
                       <button
                         onClick={full ? undefined : onOpenContact}
                         disabled={full}
-                        className={`px-8 py-3 font-anton uppercase text-sm transition-all cursor-pointer ${
-                          full
+                        className={`font-anton uppercase text-sm transition-all cursor-pointer px-6 py-3 md:px-8
+                          ${full
                             ? 'bg-white/5 text-white/20 cursor-not-allowed'
-                            : 'bg-white/5 hover:bg-lime hover:text-black text-white opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0'
-                        }`}
+                            : `bg-white/8 hover:bg-lime hover:text-black text-white
+                               opacity-100 translate-x-0
+                               [@media(hover:hover)]:opacity-0
+                               [@media(hover:hover)]:translate-x-4
+                               [@media(hover:hover)]:group-hover:opacity-100
+                               [@media(hover:hover)]:group-hover:translate-x-0`
+                          }`}
                       >
                         {full ? 'Full' : 'Reserve Slot'}
                       </button>
